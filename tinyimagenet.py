@@ -59,13 +59,12 @@ def TinyImageNetDataSet(train_split = 70,test_transforms = None,train_transforms
   dataset = TinyImageNet(classes,url="tiny-imagenet-200")
   train_len = len(dataset)*train_split//100
   test_len = len(dataset) - train_len 
-
   train_set, val_set = random_split(dataset, [train_len, test_len])
   train_dataset = DatasetFromSubset(train_set, transform=train_transforms)
   test_dataset = DatasetFromSubset(val_set, transform=test_transforms)
 
   return train_dataset, test_dataset,classes
-# train_dataset , test_dataset = TinyImageNetDataSet(train_split = 70,transforms = transforms)
+
 
 
 # --------------------------------------------------------------Custom data set-------------------------------------------------------------------------
@@ -137,13 +136,6 @@ def class_names(url = "tiny-imagenet-200/wnids.txt"):
   for line in f:
     classes.append(line.strip())
   return classes
-
-transforms =  transforms.Compose(
-            [   
-                transforms.ToTensor(),
-                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))     
-                
-            ])
 
 # ---------------------------------------------------Download Images---------------------------------------------------------------------------
 
