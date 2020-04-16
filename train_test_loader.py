@@ -38,10 +38,8 @@ def load(trainset,testset,seed=1,batch_size=128,num_workers=4,pin_memory=True):
 	trainloader = torch.utils.data.DataLoader(trainset, **dataloader_args)
 	testloader = torch.utils.data.DataLoader(testset, **dataloader_args)
 
-	classes = ('plane', 'car', 'bird', 'cat',
-    	       'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-	return classes, trainloader, testloader
+	return  trainloader, testloader
 
 
 
