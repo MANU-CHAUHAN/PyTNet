@@ -88,19 +88,22 @@ train_loss = []
 LR = []
 train_scheduler = False
 
-def train_model(model,device,trainloader,testloader,optimizer,criterion,EPOCHS,scheduler,batch_scheduler = False ,best_acc = 0,path = "/content/gdrive/My Drive/API/bestmodel.pt"):
+def train_model(model,device,trainloader,testloader,optimizer,criterion,EPOCHS,scheduler = False,batch_scheduler = False ,best_acc = 0,path = "/content/gdrive/My Drive/API/bestmodel.pt"):
   for epoch in range(EPOCHS):
       print("EPOCH:", epoch+1,'LR:',optimizer.param_groups[0]['lr'])
       LR.append(optimizer.param_groups[0]['lr'])
       train_scheduler = False
-      
+
       if(batch_scheduler):
         train_scheduler = scheduler
       train_loss, train_acc = train(model, device, trainloader, optimizer, criterion, epoch,train_scheduler)
       
       test_loss , test_acc = test(model, device, criterion, testloader)
-      if(not batch_scheduler): 
+      if(scheduler and not batch_scheduler and not isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)): 
         scheduler.step()
+
+      elif(scheduler and not batch_scheduler and  isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)):
+        scheduler.step(test_loss[-1])
       
       
       if(test_acc[-1]>best_acc):
