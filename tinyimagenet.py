@@ -64,7 +64,7 @@ def TinyImageNetDataSet(train_split = 70,test_transforms = None,train_transforms
   train_dataset = DatasetFromSubset(train_set, transform=train_transforms)
   test_dataset = DatasetFromSubset(val_set, transform=test_transforms)
 
-  return train_dataset, test_dataset
+  return train_dataset, test_dataset,classes
 # train_dataset , test_dataset = TinyImageNetDataSet(train_split = 70,transforms = transforms)
 
 
