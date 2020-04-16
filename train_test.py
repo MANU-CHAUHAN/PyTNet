@@ -92,12 +92,15 @@ def train_model(model,device,trainloader,testloader,optimizer,criterion,EPOCHS,s
   for epoch in range(EPOCHS):
       print("EPOCH:", epoch+1,'LR:',optimizer.param_groups[0]['lr'])
       LR.append(optimizer.param_groups[0]['lr'])
+      train_scheduler = False
+      
       if(batch_scheduler):
         train_scheduler = scheduler
       train_loss, train_acc = train(model, device, trainloader, optimizer, criterion, epoch,train_scheduler)
+      
+      test_loss , test_acc = test(model, device, criterion, testloader)
       if(not batch_scheduler): 
         scheduler.step()
-      test_loss , test_acc = test(model, device, criterion, testloader)
       
       
       if(test_acc[-1]>best_acc):

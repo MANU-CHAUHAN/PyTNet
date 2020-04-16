@@ -12,12 +12,12 @@ import torchvision
 
 
 
-def load(train_transform,test_transform,seed=1,batch_size=128,num_workers=4,pin_memory=True):
+def load(trainset,testset,seed=1,batch_size=128,num_workers=4,pin_memory=True):
 	
 
 	#Get the Train and Test Set
-	trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
-	testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=test_transform)
+	# trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
+	# testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=test_transform)
 
 
 	SEED = 1
