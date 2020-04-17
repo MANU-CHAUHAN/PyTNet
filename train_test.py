@@ -99,10 +99,10 @@ def train_model(model,device,trainloader,testloader,optimizer,criterion,EPOCHS,s
       train_loss, train_acc = train(model, device, trainloader, optimizer, criterion, epoch,train_scheduler)
       
       test_loss , test_acc = test(model, device, criterion, testloader)
-      if(scheduler and not batch_scheduler and not isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)): 
+      if(scheduler and not batch_scheduler and not isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)): 
         scheduler.step()
 
-      elif(scheduler and not batch_scheduler and  isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)):
+      elif(scheduler and not batch_scheduler and  isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)):
         scheduler.step(test_loss[-1])
       
       
