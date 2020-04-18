@@ -17,7 +17,7 @@ import torchvision
 def imshow(img,c ):
     img = img / 2 + 0.5     # unnormalize
     npimg = img.numpy()
-    fig = plt.figure(figsize=(7,7))
+    fig = plt.figure(figsize=(2,2))
     plt.imshow(np.transpose(npimg, (1, 2, 0)),interpolation='none')
     plt.title(c)
 
@@ -29,6 +29,7 @@ def show_train_data(dataset, classes):
 
   dataiter = iter(dataset)
   images, labels = dataiter.next()
-  for i in range(10):
-    index = [j for j in range(len(labels)) if labels[j] == i]
-    imshow(torchvision.utils.make_grid(images[index[0:5]],nrow=5,padding=2,scale_each=True),classes[i])
+  for i in range(len(classes)):
+    index = [j for j in range(1) if labels[j] == i]
+    if(index > 0):
+      imshow(torchvision.utils.make_grid(images[index,nrow=3,padding=2,scale_each=True),classes[i])
