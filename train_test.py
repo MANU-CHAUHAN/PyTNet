@@ -10,7 +10,8 @@ Original file is located at
 import torch
 
 #Training & Testing Loops
-from tqdm.notebook import tqdm
+from tqdm import .notebook.tqdm, tqdm_notebook
+
 
 train_losses = []
 test_losses = []
@@ -19,7 +20,7 @@ test_acc = []
 
 def train(model, device, train_loader, optimizer, criterion, epoch,scheduler = False):
   model.train()
-  pbar = tqdm(train_loader)
+  pbar = tqdm_notebook(train_loader)
   correct = 0
   processed = 0
   for batch_idx, (data, target) in enumerate(pbar):
