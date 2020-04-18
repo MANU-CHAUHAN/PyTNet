@@ -86,11 +86,11 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
-        out = F.AdaptiveAvgPool2d(1)
+        out = F.AdaptiveAvgPool2d(out,1)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
         return out
  
  
-def ResNet18(dropout=0, num_classes):
+def ResNet18(dropout=0, num_classes = 10):
     return ResNet(BasicBlock, [2,2,2,2],num_classes = num_classes , dropout=dropout)
