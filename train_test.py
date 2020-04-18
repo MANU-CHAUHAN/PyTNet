@@ -10,7 +10,7 @@ Original file is located at
 import torch
 
 #Training & Testing Loops
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 
 train_losses = []
 test_losses = []

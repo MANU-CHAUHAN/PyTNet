@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.optim as optim
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
 
 
