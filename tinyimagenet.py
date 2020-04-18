@@ -151,3 +151,6 @@ def download_images(url):
     for file in notebook.tqdm(iterable=zip_ref.namelist(), total=len(zip_ref.namelist())):
       zip_ref.extract(member = file)
     zip_ref.close()
+
+
+# ---------------------------------------------Extract Names of Classes -------------------------------------------
