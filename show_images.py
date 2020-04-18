@@ -31,5 +31,5 @@ def show_train_data(dataset, classes):
   images, labels = dataiter.next()
   for i in range(len(classes)):
     index = [j for j in range(1) if labels[j] == i]
-    if(index > 0):
+    if(len(index) > 0):
       imshow(torchvision.utils.make_grid(images[index],nrow=1,padding=2,scale_each=True),classes[i])
