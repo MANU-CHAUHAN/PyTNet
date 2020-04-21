@@ -4,10 +4,10 @@ A deep neural net Libraby Built on top of Pytorch
 ## *File Format*
 
 1. **Modles** - Contains the dnn models
-   . NewResnetModel.py - Dawnbench mark 2019 winners model
-   . QuizModel.py - Dense Net 
-   . ResNetModel.py - Resnet 
-   . S7Model.py - custom model
+   * NewResnetModel.py - Dawnbench mark 2019 winners model
+   * QuizModel.py - Dense Net 
+   * ResNetModel.py - Resnet 
+   * S7Model.py - custom model
    
 2. **Albumentation transforms** - Used for Image Agumentations. It is from Albumentations library.
 
