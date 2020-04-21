@@ -1,7 +1,7 @@
 # DeepPyNet
 A deep neural net Libraby Built on top of Pytorch
 
-## *File Format*
+## **File Structure**
 
 1. **Modles** - Contains the dnn models
    * NewResnetModel.py - Dawnbench mark 2019 winners model
