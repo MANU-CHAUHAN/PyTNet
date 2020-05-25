@@ -9,6 +9,7 @@ train_test for mask and depth
 import dill as dill
 import torch
 import time
+from evaluation_metrics.accuracy import dice_coefficient
 
 #Training & Testing Loops
 from tqdm.notebook import tqdm
@@ -54,7 +55,7 @@ def train(model, device, train_loader, optimizer, mask_criterion, depth_criterio
     depth_coef += dice_coefficient(depth_pred, depth_target, mask=False).item()
     # Backpropagation
     torch.autograd.backward([mask_loss, depth_loss])
-    nn.utils.clip_grad_value_(model.parameters(), 0.1)
+
     optimizer.step()
     if(scheduler):
       scheduler.step()
@@ -153,6 +154,7 @@ def train_model(model,device,trainloader,testloader,optimizer,mask_criterion, de
               'model_state_dict': model.state_dict(),
               'optimizer_state_dict': optimizer.state_dict(),
               'loss': test_loss,
+              'acc' : test_acc
               }, path,pickle_module=dill)
         
       print('----------------------------------------------------------------------------------')
