@@ -47,8 +47,8 @@ def train(model, device, train_loader, optimizer, mask_criterion, depth_criterio
 
     # Calculate loss
     
-    mask_loss = mask_criterion(mask_pred, mask_target)
-    depth_loss = depth_criterion(depth_pred, depth_target)
+    mask_loss = mask_criterion( mask_target, mask_pred)
+    depth_loss = depth_criterion(depth_target,depth_pred)
     loss = mask_loss+ depth_loss
     mask_coef += dice_coefficient(mask_pred,mask_target, mask= True).item()
     depth_coef += dice_coefficient(depth_pred, depth_target, mask=False).item()
@@ -63,12 +63,12 @@ def train(model, device, train_loader, optimizer, mask_criterion, depth_criterio
   print('\nTrain set: Average loss: {:.4f}, Coef: ({:.5f})\n'.format((mask_loss+depth_loss)/2,  (mask_coef+depth_coef) /(2*total_length)))
   train_losses.append((mask_loss/total_length,depth_loss/total_length))
   train_acc.append((mask_coef/total_length, depth_coef/total_length))
-  tb.add_scalar('Mask Train Loss', mask_loss/total_length, epoch)
-  tb.add_scalar('Depth Train Loss', depth_loss/total_length, epoch)
-  tb.add_scalar('Total Train Loss', (mask_loss+depth_loss)/(2*total_length), epoch)
-  tb.add_scalar('Mask Train Coef',mask_coef/total_length, epoch)
-  tb.add_scalar('Depth Train Coef', depth_coef/total_length, epoch)
-  tb.add_scalar('Total Train Coef', (mask_coef+depth_coef)/(2*total_length), epoch)
+#   tb.add_scalar('Mask Train Loss', mask_loss/total_length, epoch)
+#   tb.add_scalar('Depth Train Loss', depth_loss/total_length, epoch)
+#   tb.add_scalar('Total Train Loss', (mask_loss+depth_loss)/(2*total_length), epoch)
+#   tb.add_scalar('Mask Train Coef',mask_coef/total_length, epoch)
+#   tb.add_scalar('Depth Train Coef', depth_coef/total_length, epoch)
+#   tb.add_scalar('Total Train Coef', (mask_coef+depth_coef)/(2*total_length), epoch)
   return train_losses, train_acc
   
 
@@ -89,8 +89,8 @@ def test(model, device, mask_criterion, depth_criterion, test_loader, epoch):
             mask_target = mask_target.unsqueeze_(1)
             depth_target = depth_target.unsqueeze_(1)
             mask_pred, depth_pred = model(data)
-            mask_loss += mask_criterion(mask_pred, mask_target).item()  # sum up batch loss
-            depth_loss += depth_criterion(depth_pred, depth_target).item()
+            mask_loss += mask_criterion(mask_target,depth_pred).item()  # sum up batch loss
+            depth_loss += depth_criterion(depth_target,depth_pred).item()
             test_loss = mask_loss+depth_loss
           
             mask_coef += dice_coefficient(mask_pred,mask_target, mask= True).item()
@@ -105,12 +105,12 @@ def test(model, device, mask_criterion, depth_criterion, test_loader, epoch):
          (mask_coef+depth_coef) /(2*total_length)))
     
     test_acc.append((mask_coef/total_length,depth_coef/total_length))
-    tb.add_scalar('Mask Test Loss', mask_loss/total_length, epoch)
-    tb.add_scalar('Depth Test Loss', depth_loss/total_length, epoch)
-    tb.add_scalar('Total Test Loss', (mask_loss+depth_loss)/(2*total_length), epoch)
-    tb.add_scalar('Mask Test Coef',mask_coef/total_length, epoch)
-    tb.add_scalar('Depth Test Coef', depth_coef/total_length, epoch)
-    tb.add_scalar('Total Test Coef', (mask_coef+depth_coef)/(2*total_length), epoch)
+    # tb.add_scalar('Mask Test Loss', mask_loss/total_length, epoch)
+    # tb.add_scalar('Depth Test Loss', depth_loss/total_length, epoch)
+    # tb.add_scalar('Total Test Loss', (mask_loss+depth_loss)/(2*total_length), epoch)
+    # tb.add_scalar('Mask Test Coef',mask_coef/total_length, epoch)
+    # tb.add_scalar('Depth Test Coef', depth_coef/total_length, epoch)
+    # tb.add_scalar('Total Test Coef', (mask_coef+depth_coef)/(2*total_length), epoch)
     return test_losses,test_acc
 
 

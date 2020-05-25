@@ -51,10 +51,10 @@ class Rawdata(Dataset):
         else:
             for i in notebook.tqdm(range(80000)):
               
-            self.fg_bg.append(f'{url}/Fg-Bg/fg-bg{str(i+1 + (set_no-1)*80000)}.jpg')  
-            self.bg.append(math.ceil((i+1)/800)) #80k images spanned over 100 bg's. Means 800 images per background
-            self.depth.append(f'{url}/Depth/depth{str(i+1 + (set_no-1)*80000)}.jpg')
-            self.mask.append(f'{url}/Fg-Bg-Mask/fg-bg-mask{str(i+1 + (set_no-1)*80000)}.jpg')
+                self.fg_bg.append(f'{url}/Fg-Bg/fg-bg{str(i+1 + (set_no-1)*80000)}.jpg')  
+                self.bg.append(math.ceil((i+1)/800)) #80k images spanned over 100 bg's. Means 800 images per background
+                self.depth.append(f'{url}/Depth/depth{str(i+1 + (set_no-1)*80000)}.jpg')
+                self.mask.append(f'{url}/Fg-Bg-Mask/fg-bg-mask{str(i+1 + (set_no-1)*80000)}.jpg')
         # print(f'{url}/Fg-Bg/fg-bg{str(i+1 + (set_no-1)*80000)}.jpg')
             
     def __len__(self):
