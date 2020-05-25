@@ -3,6 +3,7 @@ import albumentations as A
 import albumentations.pytorch as AP
 import random
 import numpy as np
+
 class AlbumentationTransforms:
   """
   Helper class to create test and train transforms using Albumentations
@@ -16,3 +17,5 @@ class AlbumentationTransforms:
   def __call__(self, img):
     img = np.array(img)
     return self.transforms(image=img)['image']
+
+
