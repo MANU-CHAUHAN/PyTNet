@@ -40,8 +40,6 @@ A deep neural net Libraby Built on top of Pytorch
 
 7. **show_images** - Plots the given images of tensor for. Mainly used to visualise the train data.
 
-8. 
+8. **train_test** - Used to train the model.
 
-9. **train_test** - Used to train the model.
-
-10. **train_test_loader** - takes the train test data of type dataset, converts into data loader form, set the seed, check for the cuda availability.
+9. **train_test_loader** - takes the train test data of type dataset, converts into data loader form, set the seed, check for the cuda availability.
