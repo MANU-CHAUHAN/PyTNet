@@ -37,4 +37,4 @@ def dice_coefficient(pred, target, mask=False):
     for i, c in enumerate(zip(pred, target)):
         s = s + DiceCoeff().forward(c[0], c[1])
 
-    return s / (i + 1)
+    return s 

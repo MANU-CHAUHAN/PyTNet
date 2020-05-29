@@ -48,8 +48,8 @@ def train(model, device, train_loader, optimizer, mask_criterion, depth_criterio
 
     # Calculate loss
     
-    mask_loss = mask_criterion( mask_target, mask_pred)
-    depth_loss = depth_criterion(depth_target,depth_pred)
+    mask_loss = mask_criterion(  mask_pred,mask_target,)
+    depth_loss = depth_criterion(depth_pred,depth_target)
     loss = mask_loss+ depth_loss
     mask_coef += dice_coefficient(mask_pred,mask_target, mask= True).item()
     depth_coef += dice_coefficient(depth_pred, depth_target, mask=False).item()
@@ -90,8 +90,8 @@ def test(model, device, mask_criterion, depth_criterion, test_loader, epoch):
             mask_target = mask_target.unsqueeze_(1)
             depth_target = depth_target.unsqueeze_(1)
             mask_pred, depth_pred = model(data)
-            mask_loss += mask_criterion(mask_target,depth_pred).item()  # sum up batch loss
-            depth_loss += depth_criterion(depth_target,depth_pred).item()
+            mask_loss += mask_criterion(depth_pred,mask_target,).item()  # sum up batch loss
+            depth_loss += depth_criterion(depth_pred,mask_target,).item()
             test_loss = mask_loss+depth_loss
           
             mask_coef += dice_coefficient(mask_pred,mask_target, mask= True).item()

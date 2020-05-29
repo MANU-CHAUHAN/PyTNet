@@ -5,7 +5,8 @@ displays the actual and predicted images of both mask and depth
 
 """
 import torch
-
+import matplotlib.pyplot as plt
+import torchvision
 def show_result_img(target, predict, type, name):
     
     fig, a =plt.subplots(2,1,figsize=(45,35))
@@ -50,7 +51,7 @@ def show_results(model,testloader,name):
     batch_preds_mask = torch.sigmoid(mask)
     batch_preds_mask = batch_preds_mask.detach().cpu()
     
-    batch_preds_depth = torch.sigmoid(depth)
+    batch_preds_depth = depth
     batch_preds_depth = batch_preds_depth.detach().cpu()
 
 
