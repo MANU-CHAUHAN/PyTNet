@@ -104,46 +104,10 @@ class UNet(nn.Module):
         self.up5_depth = Up(64, 32, bilinear)
         self.outc_depth = OutConv(32, n_classes)
 
-      # -------------- Mask -------------------
-        self.down1_mask = Down(32, 64)
-        self.down2_mask = Down(64, 128)
-        self.down3_mask = Down(128, 256)
-
-        factor = 2 if bilinear else 1
-
-        self.down4_mask = Down(256, 512 // factor)
-        self.up1_mask = Up(512, 256 // factor, bilinear)
-        self.up2_mask = Up(256, 128 // factor, bilinear)
-        self.up3_mask = Up(128, 64 // factor, bilinear)
-        self.up4_mask = Up(64, 32, bilinear)
-        self.outc_mask = OutConv(32, n_classes)
-
     def forward(self, inputimg):
-        # -------- Same to both mask and depth ----------------
-
-        x1 = self.inc(inputimg)
-
-        # ----------Depth-----------
       
-        x2_depth = self.down1_depth(x1)
-        x3_depth = self.down2_depth(x2_depth)
-        x4_depth = self.down3_depth(x3_depth)
-        x5_depth = self.down4_depth(x4_depth)
-        x6_depth = self.down5_depth(x5_depth)
-      
-        x_depth = self.up1_depth(x6_depth, x5_depth)
-        x_depth = self.up2_depth(x_depth, x4_depth)
-        x_depth = self.up3_depth(x_depth, x3_depth)
-        x_depth = self.up4_depth(x_depth, x2_depth)
-        x_depth = self.up5_depth(x_depth, x1)
-        
-        logits_depth = self.outc_depth(x_depth)
-        
 
-
-        #---------- Mask ------------------
-      
-        
+        x1 = self.inc(inputimg)        
         x2_mask = self.down1_mask(x1)
         x3_mask = self.down2_mask(x2_mask)
         x4_mask = self.down3_mask(x3_mask)
@@ -157,4 +121,4 @@ class UNet(nn.Module):
         logits_mask = self.outc_mask(x_mask)
       
         
-        return  logits_mask,logits_depth
+        return  logits_mask
