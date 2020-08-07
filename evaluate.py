@@ -29,17 +29,17 @@ def show_misclassified_images(model, device, dataset, classes,number = 25):
 
 # --------------------------------------Plot Misclassified Images-------------------------------------------------
     
-def plot_misclassified_images(misclassified_images, classes,number = 25) :
+def plot_misclassified_images(misclassified_images, classes, Figsize = (20,20),number = 25) :
 
-  fig = plt.figure(figsize = (8,8))
+  fig = plt.figure(figsize = Figsize)
   for i in range(25):
         sub = fig.add_subplot(5, 5, i+1)
         img = misclassified_images[i][0].cpu()
-        img = img *2  + 0.5 
+        img = img *0.29  + 0.6 
         npimg = img.numpy()
         plt.imshow(np.transpose(npimg,(1, 2, 0)),interpolation='none')
 
-        sub.set_title("P={}, A={}".format(str(classes[misclassified_images[i][1].data.cpu().numpy()]),str(classes[misclassified_images[i][2].data.cpu().numpy()])))
+        sub.set_title("P={}\nA={}".format(str(classes[misclassified_images[i][1].data.cpu().numpy()]),str(classes[misclassified_images[i][2].data.cpu().numpy()])), fontsize = 10)
         sub.axis('off')
   plt.tight_layout()
 
@@ -64,21 +64,22 @@ def evaluate_accuracy(model, device, test_loader):
 # --------------------------------Evaluate classWise Accuracy------------------------------------------------------
 
 def evaluate_classwise_accuracy(model, device, classes, test_loader):
-    class_correct = list(0. for i in range(10))
-    class_total = list(0. for i in range(10))
+    class_correct = list(0. for i in range(len(classes)))
+    class_total = list(0. for i in range(len(classes)))
+  
     with torch.no_grad():
         for images, labels in test_loader:
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
-            _, predicted = torch.max(outputs, 1)
-            c = (predicted == labels).squeeze()
+            _, predicted = torch.max(outputs.data, 1) 
+            c = (predicted == labels).squeeze().to('cpu').flatten()
             for i in range(len(c)):
             	label = labels[i]
             	class_correct[label] += c[i].item()
             	class_total[label] += 1
 
-    for i in range(10):
-        print('Accuracy of %5s : %2d %%' % (
+    for i in range(len(classes)):
+        print('Accuracy of %5s : %2d%%' % (
             classes[i], 100 * class_correct[i] / class_total[i]))
 
 
